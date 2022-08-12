@@ -487,6 +487,25 @@ ActiveRecord::Schema.define(version: 2022_07_05_021742) do
     t.index ["app_id"], name: "index_vaccines_on_app_id"
   end
 
+  create_table "module", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.bigint "module_id"
+  end
+
+  create_table "course", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.bigint "course_id"
+    t.index ["module_id"], name: "index_course_on_module_id"
+  end
+  
+  create_table "content_course", force: :cascade do |t|
+    t.string "title"
+    t.bigint "content_id"
+    t.index ["course_id"], name: "index_content_course_on_course_id"
+  end
+
   add_foreign_key "admins", "apps"
   add_foreign_key "categories", "apps"
   add_foreign_key "city_managers", "apps"
